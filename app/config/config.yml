@@ -75,6 +75,7 @@ fos_rest:
         enabled: true
     view:
         formats: { json: true, xml: false, rss: false }
+        view_response_listener: true
     serializer:
         serialize_null: true
     format_listener:
@@ -82,6 +83,6 @@ fos_rest:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
 
 sensio_framework_extra:
-    view: { annotations: false }
+    #view: { annotations: false }
     request: { converters: true }
 
