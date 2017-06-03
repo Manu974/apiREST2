@@ -32,6 +32,7 @@ framework:
     assets: ~
     php_errors:
         log: true
+
     
 
 # Twig Configuration
@@ -73,15 +74,16 @@ fos_rest:
     body_converter:
         enabled: true
     view:
-        formats: { json: true, xml: false, rss: false }
         view_response_listener: true
+        formats: { json: true, xml: false, rss: false }        
     serializer:
         serialize_null: true
     format_listener:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+    param_fetcher_listener: true
 
-sensio_framework_extra:
-    #view: { annotations: false }
-    request: { converters: true }
+#sensio_framework_extra:
+    #view: { annotations: true }
+    #request: { converters: true }
 
