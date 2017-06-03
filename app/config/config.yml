@@ -84,6 +84,12 @@ fos_rest:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
     param_fetcher_listener: true
+    exception:
+        enabled: true
+        codes:
+           { AppBundle\Exception\ResourceValidationException: 400 }
+        messages:
+           { AppBundle\Exception\ResourceValidationException: true }
 
 #sensio_framework_extra:
     #view: { annotations: true }

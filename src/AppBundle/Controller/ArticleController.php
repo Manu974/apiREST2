@@ -16,6 +16,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
+use AppBundle\Exception\ResourceValidationException;
+
 
 
 
@@ -56,7 +58,12 @@ class ArticleController extends FOSRestController
     public function createAction(Article $article, ConstraintViolationList $violations)
     {
         if (count($violations)) {
-            return $this->view($violations, Response::HTTP_BAD_REQUEST);
+            $message = 'The JSON sent contains invalid data. Here are the errors you need to correct: ';
+            foreach ($violations as $violation) {
+                $message .= sprintf("Field %s: %s ", $violation->getPropertyPath(), $violation->getMessage());
+            }
+
+            throw new ResourceValidationException($message);
         }
 
 
