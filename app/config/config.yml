@@ -73,6 +73,8 @@ swiftmailer:
 fos_rest:
     body_converter:
         enabled: true
+        validate: true
+        validation_errors_argument: violations
     view:
         view_response_listener: true
         formats: { json: true, xml: false, rss: false }        
