@@ -78,16 +78,15 @@ fos_rest:
     view:
         view_response_listener: true
         formats: { json: true, xml: false, rss: false }        
-    serializer:
-        serialize_null: true
+    
     format_listener:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
-    param_fetcher_listener: true
+    param_fetcher_listener: force
     exception:
         enabled: true
         codes:
-           { AppBundle\Exception\ResourceValidationException: 400 }
+           { AppBundle\Exception\ResourceValidationException: 400, \Exception: 500 }
         messages:
            { AppBundle\Exception\ResourceValidationException: true }
 
