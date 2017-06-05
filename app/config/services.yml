@@ -19,3 +19,9 @@ services:
             - '@jms_serializer'
         tags:
             - { name: kernel.event_subscriber }
+    app.weather:
+        class: AppBundle\Weather\Weather
+        arguments:
+            - '@csa_guzzle.client.weather'
+            - '@jms_serializer'
+            - '%weather_api_key%'

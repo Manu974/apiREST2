@@ -100,6 +100,12 @@ fos_rest:
                 enabled: true
                 regex: '/(v|version)=(?P<version>[0-9\.]+)/'
 
+csa_guzzle:
+    clients:
+        weather:
+            config:
+                base_uri: http://api.openweathermap.org
+
 #sensio_framework_extra:
     #view: { annotations: true }
     #request: { converters: true }
