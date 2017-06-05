@@ -44,6 +44,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     embedded = @Hateoas\Embedded("expr(object.getAuthor())")
  * )
  *
+ *
  * 
  */
 class Article
@@ -60,6 +61,7 @@ class Article
      * @ORM\Column(type="string", length=100)
      * @Expose
      * @Assert\NotBlank(groups={"Create"})
+     * @Serializer\Since("1.0")
      */
     private $title;
 
@@ -67,6 +69,7 @@ class Article
      * @ORM\Column(type="text")
      * @Expose
      * @Assert\NotBlank(groups={"Create"})
+     * @Serializer\Since("1.0")
      */
     private $content;
 
@@ -74,6 +77,13 @@ class Article
      * @ORM\ManyToOne(targetEntity="Author", cascade={"all"}, fetch="EAGER")
      */
     private $author;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Serializer\Expose
+     * @Serializer\Since("2.0")
+     */
+    private $shortDescription;
 
     public function getId()
     {
@@ -112,5 +122,17 @@ class Article
     public function setAuthor(Author $author)
     {
         $this->author = $author;
+    }
+
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription($shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
     }
 }

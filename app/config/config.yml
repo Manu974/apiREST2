@@ -77,8 +77,12 @@ fos_rest:
         validation_errors_argument: violations
     view:
         view_response_listener: true
-        formats: { json: true, xml: false, rss: false }        
-    
+        formats: { json: true, xml: false, rss: false }
+        mime_types:
+            json: ['application/json', 'application/json;version=1.0', 'application/json;version=2.0']        
+    serializer:
+        serialize_null: true
+
     format_listener:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
@@ -89,6 +93,12 @@ fos_rest:
            { AppBundle\Exception\ResourceValidationException: 400, \Exception: 500 }
         messages:
            { AppBundle\Exception\ResourceValidationException: true }
+    versioning:
+        enabled: true
+        resolvers:
+            media_type: # Accept header
+                enabled: true
+                regex: '/(v|version)=(?P<version>[0-9\.]+)/'
 
 #sensio_framework_extra:
     #view: { annotations: true }
