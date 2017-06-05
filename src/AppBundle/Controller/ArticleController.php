@@ -116,5 +116,60 @@ class ArticleController extends FOSRestController
         return new Articles($pager);
 
     }
+
+     /**
+     * @Rest\Put(
+     *     path = "/articles/{id}",
+     *     name = "app_article_update",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @Rest\View(StatusCode = 200)
+     * @ParamConverter("article", converter="fos_rest.request_body")
+     * 
+     */
+    public function updateAction(Article $article, ConstraintViolationList $violations, $id)
+    {
+
+
+        if (count($violations)) {
+            $message = 'The JSON sent contains invalid data. Here are the errors you need to correct: ';
+            
+            foreach ($violations as $violation) {
+                $message .= sprintf("Field %s: %s ", $violation->getPropertyPath(), $violation->getMessage());
+            }
+
+            throw new ResourceValidationException($message);
+        }
+
+        $articleBdd = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
+
+        $articleBdd->setTitle($article->getTitle());
+        $articleBdd->setContent($article->getContent());
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        return $articleBdd;
+    }
+
+
+
+    /**
+     * @Rest\Delete(
+     *     path = "/articles/delete/{id}",
+     *     name = "app_article_delete",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @Rest\View(StatusCode = 204)
+     */
+    public function deleteAction(Article $article)
+    {   
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($article);
+        $em->flush();
+
+    }
     
 }
