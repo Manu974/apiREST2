@@ -21,6 +21,7 @@ use AppBundle\Exception\ResourceValidationException;
 
 
 
+
 class ArticleController extends FOSRestController
 {
     /**
@@ -33,9 +34,7 @@ class ArticleController extends FOSRestController
      */
     public function showAction(Article $article)
     {
-        $article = new Article();
-        $article->setTitle('le titre de mon article');
-        $article->setContent('le contenu de mon article');
+       
 
         return $article;
     }
