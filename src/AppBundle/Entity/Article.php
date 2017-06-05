@@ -39,6 +39,10 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          absolute = true
  *      )
  * )
+ * @Hateoas\Relation(
+ *     "author",
+ *     embedded = @Hateoas\Embedded("expr(object.getAuthor())")
+ * )
  *
  * 
  */
